@@ -1,7 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { recetas } from '../../data/recetas.js';
-import { recetaToLatex, toDataUri } from '../../utils/latex.js';
 
 export function getStaticPaths() {
   return recetas.map((receta) => ({
@@ -13,7 +12,6 @@ export function getStaticPaths() {
 const { receta } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const imagen = `${base}/img/${receta.slug}.jpg`;
-const texHref = toDataUri(recetaToLatex(receta));
 ---
 
 <Layout title={receta.titulo}>
@@ -42,7 +40,6 @@ const texHref = toDataUri(recetaToLatex(receta));
   <div style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;" class="no-print">
     <button onclick="window.print()" style="padding: 10px 15px; background: #2A7A6E; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ Imprimir</button>
     <button class="btn-reset" style="padding: 10px 15px; background: #ccc; color: #333; border: none; border-radius: 5px; cursor: pointer;">🗑️ Limpiar Checklist</button>
-    <a href={texHref} download={`${receta.slug}.tex`} style="padding: 10px 15px; background: #f0f7f5; color: #2A7A6E; border: 1px solid #2A7A6E; border-radius: 5px; cursor: pointer; text-decoration: none;">📄 Descargar .tex</a>
   </div>
 
   <h2>Ingredientes</h2>

@@ -1,10 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { semanas } from '../data/plan-semanal.js';
-import { semanasToLatexDoc, toDataUri } from '../utils/latex.js';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const texHref = toDataUri(semanasToLatexDoc(semanas));
 
 const cajaStyle = "background: #f9f9f9; border-radius: 6px; padding: 4px 4px 12px; margin-bottom: 24px; overflow-x: auto;";
 const thStyle = "text-align: left; padding: 8px 10px; background: #2A7A6E; color: white; font-size: 0.9em;";
@@ -19,7 +17,6 @@ const tdStyle = "padding: 8px 10px; border-bottom: 1px solid #eee; vertical-alig
 
   <div style="display: flex; gap: 10px; margin: 16px 0 24px; flex-wrap: wrap;" class="no-print">
     <button onclick="window.print()" style="padding: 10px 15px; background: #2A7A6E; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ Imprimir</button>
-    <a href={texHref} download="plan-semanal.tex" style="padding: 10px 15px; background: #f0f7f5; color: #2A7A6E; border: 1px solid #2A7A6E; border-radius: 5px; cursor: pointer; text-decoration: none;">📄 Descargar .tex</a>
   </div>
 
   {semanas.map((semana) => (
