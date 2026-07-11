@@ -18,14 +18,24 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   <body>
     <main style="font-family: system-ui, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; color: #333;">
       <slot />
+
+      <footer class="no-print" style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; font-size: 0.8em; color: #888; line-height: 1.6;">
+        <p><strong>Fuentes:</strong> algunas recetas fueron tomadas de Infobae y adaptadas; el plan semanal y otras recetas fueron aportados por una profesional de nutrición. El desarrollo del sitio y los ajustes de contenido contaron con asistencia de herramientas de IA.</p>
+        <p><strong>Aviso:</strong> este contenido es de uso personal y no reemplaza el asesoramiento de un profesional de la salud. Consultá a un nutricionista o médico antes de modificar tu alimentación.</p>
+        <p><strong>Privacidad:</strong> este sitio no recopila datos personales ni usa cookies de seguimiento. El progreso de los checklists se guarda únicamente en tu navegador (localStorage) y nunca se envía a ningún servidor.</p>
+        <p>© 2026 Lemeit</p>
+      </footer>
     </main>
 
     <style>
       /* ESTILOS PARA IMPRIMIR: Oculta lo que no querés en el PDF */
       @media print {
-        .no-print { display: none !important; }
-        body { background: white !important; }
+        :global(.no-print) { display: none !important; }
+        body { background: white !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
         main { padding: 0 !important; }
+      }
+      @page {
+        margin: 1.5cm;
       }
     </style>
   </body>

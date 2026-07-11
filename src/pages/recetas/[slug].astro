@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { recetas } from '../../data/recetas.js';
+import { recetaToLatex, toDataUri } from '../../utils/latex.js';
 
 export function getStaticPaths() {
   return recetas.map((receta) => ({
@@ -12,6 +13,7 @@ export function getStaticPaths() {
 const { receta } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const imagen = `${base}/img/${receta.slug}.jpg`;
+const texHref = toDataUri(recetaToLatex(receta));
 ---
 
 <Layout title={receta.titulo}>
@@ -20,25 +22,27 @@ const imagen = `${base}/img/${receta.slug}.jpg`;
     <a href={`${base}/recetas`} style="text-decoration: none; color: #2A7A6E; font-weight: bold;">← Volver a recetas</a>
   </div>
 
-  <h1 style="color: #2A7A6E; margin-bottom: 4px;">{receta.titulo}</h1>
-  <p style="color: #666; font-style: italic; margin-top: 0;">{receta.descripcion}</p>
+  <h1 class="receta-titulo" style="color: #2A7A6E; margin-bottom: 4px;">{receta.titulo}</h1>
+  <p class="receta-desc" style="color: #666; font-style: italic; margin-top: 0;">{receta.descripcion}</p>
 
-  <div style="display: flex; gap: 20px; margin-bottom: 20px; font-size: 0.9em; color: #666; flex-wrap: wrap;">
+  <div class="receta-meta" style="display: flex; gap: 20px; margin-bottom: 20px; font-size: 0.9em; color: #666; flex-wrap: wrap;">
     <span>🔧 Prep: {receta.prep}</span>
     <span>🔥 Cocción: {receta.coccion}</span>
     <span>🍽️ {receta.porciones}</span>
   </div>
 
   <img
+    class="receta-imagen"
     src={imagen}
     alt={receta.titulo}
     onerror="this.style.display='none'"
     style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;"
   />
 
-  <div style="display: flex; gap: 10px; margin-bottom: 30px;" class="no-print">
+  <div style="display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap;" class="no-print">
     <button onclick="window.print()" style="padding: 10px 15px; background: #2A7A6E; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ Imprimir</button>
     <button class="btn-reset" style="padding: 10px 15px; background: #ccc; color: #333; border: none; border-radius: 5px; cursor: pointer;">🗑️ Limpiar Checklist</button>
+    <a href={texHref} download={`${receta.slug}.tex`} style="padding: 10px 15px; background: #f0f7f5; color: #2A7A6E; border: 1px solid #2A7A6E; border-radius: 5px; cursor: pointer; text-decoration: none;">📄 Descargar .tex</a>
   </div>
 
   <h2>Ingredientes</h2>
@@ -59,15 +63,15 @@ const imagen = `${base}/img/${receta.slug}.jpg`;
   </ol>
 
   {receta.tip && (
-    <p style="background: #f0f7f5; padding: 10px 14px; border-radius: 6px; margin-top: 20px;"><strong>Tip:</strong> {receta.tip}</p>
+    <p class="receta-tip" style="background: #f0f7f5; padding: 10px 14px; border-radius: 6px; margin-top: 20px;"><strong>Tip:</strong> {receta.tip}</p>
   )}
 
   {receta.conservacion && (
-    <p style="background: #f0f7f5; padding: 10px 14px; border-radius: 6px; margin-top: 10px;"><strong>Conservación:</strong> {receta.conservacion}</p>
+    <p class="receta-conservacion" style="background: #f0f7f5; padding: 10px 14px; border-radius: 6px; margin-top: 10px;"><strong>Conservación:</strong> {receta.conservacion}</p>
   )}
 
   {receta.nutricion && (
-    <p style="color: #666; font-size: 0.9em; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;"><strong>Por porción (aprox.):</strong> {receta.nutricion}</p>
+    <p class="receta-nutricion" style="color: #666; font-size: 0.9em; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;"><strong>Por porción (aprox.):</strong> {receta.nutricion}</p>
   )}
 
 </Layout>
@@ -106,5 +110,63 @@ const imagen = `${base}/img/${receta.slug}.jpg`;
     background-color: #e8f5e9 !important;
     text-decoration: line-through;
     color: #666;
+  }
+
+  @media print {
+    .receta-titulo {
+      font-family: Georgia, 'Times New Roman', serif !important;
+      font-size: 24pt !important;
+      border-bottom: 2px solid #2A7A6E;
+      padding-bottom: 6pt;
+    }
+
+    .receta-desc {
+      font-family: Georgia, 'Times New Roman', serif !important;
+      font-size: 11pt !important;
+    }
+
+    .receta-meta {
+      background: #f4f4f4 !important;
+      border: 1px solid #ccc;
+      border-radius: 4pt;
+      padding: 6pt 10pt !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .receta-imagen {
+      max-height: 200px !important;
+    }
+
+    h2 {
+      font-family: Georgia, 'Times New Roman', serif !important;
+      border-top: 1px solid #ccc;
+      padding-top: 8pt;
+      margin-top: 18pt;
+      break-after: avoid;
+    }
+
+    .checklist-item {
+      background: transparent !important;
+      border: 1px solid #ddd;
+      break-inside: avoid;
+    }
+
+    ol li {
+      break-inside: avoid;
+    }
+
+    .receta-tip,
+    .receta-conservacion {
+      border-left: 4px solid #2A7A6E;
+      background: #f0f7f5 !important;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      break-inside: avoid;
+    }
+
+    .receta-nutricion {
+      break-inside: avoid;
+    }
   }
 </style>
