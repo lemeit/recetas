@@ -10,7 +10,22 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
   </div>
   <p style="color: #555;">Recetas del plan, con checklist de ingredientes que se guarda solo, y guía de pautas y sugerencias.</p>
 
-  <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 28px;">
+  <div style="display: flex; gap: 12px; margin: 20px 0; flex-wrap: wrap;">
+    <div style="flex: 1; min-width: 100px; text-align: center; background: #f0f7f5; border-radius: 8px; padding: 14px 8px;">
+      <div style="font-size: 1.8em; font-weight: bold; color: #2A7A6E;">34</div>
+      <div style="font-size: 0.8em; color: #666;">recetas</div>
+    </div>
+    <div style="flex: 1; min-width: 100px; text-align: center; background: #f0f7f5; border-radius: 8px; padding: 14px 8px;">
+      <div style="font-size: 1.8em; font-weight: bold; color: #2A7A6E;">4</div>
+      <div style="font-size: 0.8em; color: #666;">semanas de plan</div>
+    </div>
+    <div style="flex: 1; min-width: 100px; text-align: center; background: #f0f7f5; border-radius: 8px; padding: 14px 8px;">
+      <div style="font-size: 1.8em; font-weight: bold; color: #2A7A6E;">📋</div>
+      <div style="font-size: 0.8em; color: #666;">pautas a mano</div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
     <a href={`${base}/guia`} style="display: flex; align-items: center; gap: 14px; padding: 16px; background: #f9f9f9; border-left: 4px solid #2A7A6E; border-radius: 0 8px 8px 0; text-decoration: none; color: #333;">
       <span style="font-size: 28px;">📋</span>
       <div>
@@ -32,5 +47,23 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
         <div style="font-size: 0.9em; color: #666; margin-top: 2px;">34 recetas completas, con checklist de ingredientes e impresión.</div>
       </div>
     </a>
+  </div>
+
+  <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid #eee;">
+    <h2 style="font-size: 1.1em; color: #2A7A6E; margin-bottom: 14px;">Cómo usar este sitio</h2>
+    <div style="display: flex; flex-direction: column; gap: 12px;">
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <span style="background: #2A7A6E; color: white; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 0.85em;">1</span>
+        <span style="color: #555;">Elegí una receta, o mirá qué toca según el plan semanal.</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <span style="background: #2A7A6E; color: white; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 0.85em;">2</span>
+        <span style="color: #555;">Marcá los ingredientes a medida que cocinás — se guardan solos en el navegador.</span>
+      </div>
+      <div style="display: flex; gap: 12px; align-items: flex-start;">
+        <span style="background: #2A7A6E; color: white; border-radius: 50%; width: 26px; height: 26px; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; font-size: 0.85em;">3</span>
+        <span style="color: #555;">¿La necesitás en papel? Tocá "Imprimir" y guardala como PDF.</span>
+      </div>
+    </div>
   </div>
 </Layout>
