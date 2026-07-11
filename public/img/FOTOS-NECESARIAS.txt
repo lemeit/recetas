@@ -1,0 +1,50 @@
+FOTOS NECESARIAS - recetas-web
+=================================
+
+Cada foto va en: public\img\
+Formato: .jpg (si tenes .png o .jpeg, tambien funciona, pero fijate
+que la extension en el archivo coincida con lo que se pide - todas
+estan armadas para buscar .jpg).
+
+Si una foto todavia no existe, la receta funciona igual, simplemente
+no muestra imagen (no rompe nada).
+
+--- ALMUERZOS Y CENAS (24) ---
+
+pollo-mostaza.jpg   ->   Pechuga de pollo a la mostaza
+wrap-atun.jpg   ->   Wrap de atún, yogur griego y palta
+ninos-envueltos-repollo.jpg   ->   Niños envueltos en repollo
+noquis-crujientes.jpg   ->   Ñoquis crujientes en sartén
+hummus-remolacha.jpg   ->   Hummus de remolacha
+estofado-crema-hongos.jpg   ->   Estofado de carne con crema de hongos
+fideos-zucchini-tomates-cherry.jpg   ->   Fideos de zucchini con tomates cherry
+risotto-coliflor.jpg   ->   Risotto de coliflor
+bunuelos-acelga-freidora.jpg   ->   Buñuelos de acelga en freidora de aire
+berenjenas-parmesana.jpg   ->   Berenjenas a la parmesana
+tacos-masa-zanahoria.jpg   ->   Tacos de masa de zanahoria
+pure-coliflor.jpg   ->   Puré de coliflor
+tarta-berenjena-zucchini.jpg   ->   Tarta de berenjena y zucchini
+albondigas-salsa-arroz.jpg   ->   Albóndigas con salsa y arroz
+sopa-brocoli-manzana.jpg   ->   Sopa de crema de brócoli y manzana verde
+tarta-tomate-muzza-arvejas.jpg   ->   Tarta de tomate, muzzarella y arvejas
+sopa-calabaza-curcuma.jpg   ->   Sopa de calabaza con cúrcuma
+pollo-grille-ensalada-arvejas.jpg   ->   Pollo grillé con ensalada de arvejas
+salteado-zapallitos-choclo.jpg   ->   Salteado de zapallitos con choclo y cebollita
+bife-chorizo-chimichurri.jpg   ->   Bife de chorizo a la plancha con chimichurri
+tortilla-papas-sarten.jpg   ->   Tortilla de papas a la sartén
+hummus-arvejas.jpg   ->   Hummus de arvejas
+higado-encebollado.jpg   ->   Hígado encebollado
+ensalada-pollo-yogur.jpg   ->   Ensalada de pollo con yogur y mayonesa
+
+--- POSTRES Y DESAYUNOS (10) ---
+
+budin-garbanzo-peras.jpg   ->   Budín de harina de garbanzo y peras
+torta-avena-sin-azucar.jpg   ->   Torta de avena sin azúcar
+panqueques-harina-leudante.jpg   ->   Panqueques con harina leudante
+yogur-limon-cremoso.jpg   ->   Yogur de limón cremoso
+gelatina-chia.jpg   ->   Gelatina de chía
+panqueques-manzana-avena.jpg   ->   Panqueques de manzana y avena
+granola-casera.jpg   ->   Granola casera, rápida y fácil
+arroz-con-leche.jpg   ->   Arroz con leche cremoso
+tostadas-belgas.jpg   ->   Tostadas belgas
+flan-calabaza-sin-azucar.jpg   ->   Flan de calabaza sin azúcar
