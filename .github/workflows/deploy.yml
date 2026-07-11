@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-	- name: Install, build y upload
+      - name: Install, build y upload
         uses: withastro/action@v3
         with:
           node-version: 22
