@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { recetas } from '../../data/recetas.js';
+
+const principales = recetas.filter((r) => r.categoria === 'principal');
+const postres = recetas.filter((r) => r.categoria === 'postre-desayuno');
+
+const cardStyle = "text-decoration: none; color: #333; display: block; padding: 12px 14px; background: #f9f9f9; border-radius: 6px; transition: background 0.15s;";
+---
+
+<Layout title="Recetas">
+  <a href="/" style="text-decoration: none; color: #2A7A6E; font-weight: bold;">← Inicio</a>
+  <h1 style="color: #2A7A6E;">Recetas</h1>
+
+  <h2>Almuerzos y cenas</h2>
+  <ul style="list-style: none; padding: 0; display: grid; gap: 8px; margin-bottom: 30px;">
+    {principales.map((r) => (
+      <li>
+        <a href={`/recetas/${r.slug}`} style={cardStyle}>{r.titulo}</a>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Postres y desayunos</h2>
+  <ul style="list-style: none; padding: 0; display: grid; gap: 8px;">
+    {postres.map((r) => (
+      <li>
+        <a href={`/recetas/${r.slug}`} style={cardStyle}>{r.titulo}</a>
+      </li>
+    ))}
+  </ul>
+</Layout>

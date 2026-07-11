@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { recetas } from '../../data/recetas.js';
+
+export function getStaticPaths() {
+  return recetas.map((receta) => ({
+    params: { slug: receta.slug },
+    props: { receta },
+  }));
+}
+
+const { receta } = Astro.props;
+const imagen = `/img/${receta.slug}.jpg`;
+---
+
+<Layout title={receta.titulo}>
+
+  <div class="no-print" style="margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 10px;">
+    <a href="/recetas" style="text-decoration: none; color: #2A7A6E; font-weight: bold;">← Volver a recetas</a>
+  </div>
+
+  <h1 style="color: #2A7A6E; margin-bottom: 4px;">{receta.titulo}</h1>
+  <p style="color: #666; font-style: italic; margin-top: 0;">{receta.descripcion}</p>
+
+  <div style="display: flex; gap: 20px; margin-bottom: 20px; font-size: 0.9em; color: #666; flex-wrap: wrap;">
+    <span>🔧 Prep: {receta.prep}</span>
+    <span>🔥 Cocción: {receta.coccion}</span>
+    <span>🍽️ {receta.porciones}</span>
+  </div>
+
+  <img
+    src={imagen}
+    alt={receta.titulo}
+    onerror="this.style.display='none'"
+    style="width: 100%; max-height: 400px; object-fit: cover; border-radius: 8px; margin-bottom: 20px;"
+  />
+
+  <div style="display: flex; gap: 10px; margin-bottom: 30px;" class="no-print">
+    <button onclick="window.print()" style="padding: 10px 15px; background: #2A7A6E; color: white; border: none; border-radius: 5px; cursor: pointer;">🖨️ Imprimir</button>
+    <button class="btn-reset" style="padding: 10px 15px; background: #ccc; color: #333; border: none; border-radius: 5px; cursor: pointer;">🗑️ Limpiar Checklist</button>
+  </div>
+
+  <h2>Ingredientes</h2>
+  <ul class="lista-check" data-recipe-id={receta.slug} style="list-style: none; padding: 0; margin-bottom: 30px;">
+    {receta.ingredientes.map((ing) => (
+      <li class="checklist-item" style="padding: 8px; margin-bottom: 5px; background: #f9f9f9; border-radius: 5px; display: flex; align-items: center; cursor: pointer;">
+        <input type="checkbox" style="margin-right: 10px; width: 18px; height: 18px; cursor: pointer;" />
+        <span>{ing}</span>
+      </li>
+    ))}
+  </ul>
+
+  <h2>Preparación</h2>
+  <ol>
+    {receta.pasos.map((paso, index) => (
+      <li style="margin-bottom: 15px; line-height: 1.6;"><strong>{index + 1}.</strong> {paso}</li>
+    ))}
+  </ol>
+
+  {receta.tip && (
+    <p style="background: #f0f7f5; padding: 10px 14px; border-radius: 6px; margin-top: 20px;"><strong>Tip:</strong> {receta.tip}</p>
+  )}
+
+  {receta.conservacion && (
+    <p style="background: #f0f7f5; padding: 10px 14px; border-radius: 6px; margin-top: 10px;"><strong>Conservación:</strong> {receta.conservacion}</p>
+  )}
+
+  {receta.nutricion && (
+    <p style="color: #666; font-size: 0.9em; margin-top: 20px; border-top: 1px solid #eee; padding-top: 10px;"><strong>Por porción (aprox.):</strong> {receta.nutricion}</p>
+  )}
+
+</Layout>
+
+<script>
+  function initChecklist() {
+    const list = document.querySelector('.lista-check');
+    if (!list) return;
+    const storageKey = 'checklist-' + list.dataset.recipeId;
+    const checkboxes = list.querySelectorAll('input[type="checkbox"]');
+    const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+
+    checkboxes.forEach((cb, index) => {
+      if (saved[index]) cb.checked = true;
+      cb.addEventListener('change', () => {
+        const state = Array.from(checkboxes).map((c) => c.checked);
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      });
+    });
+
+    const resetBtn = document.querySelector('.btn-reset');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        if (confirm('¿Seguro que querés limpiar la lista?')) {
+          checkboxes.forEach((cb) => (cb.checked = false));
+          localStorage.removeItem(storageKey);
+        }
+      });
+    }
+  }
+  document.addEventListener('DOMContentLoaded', initChecklist);
+</script>
+
+<style>
+  .checklist-item:has(input:checked) {
+    background-color: #e8f5e9 !important;
+    text-decoration: line-through;
+    color: #666;
+  }
+</style>
